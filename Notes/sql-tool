@@ -1,0 +1,45 @@
+                 Simple Mental Model
+
+
+| Class                  | Role                        | Similar to           |
+| ---------------------- | --------------------------- | -------------------- |
+| `SQLDatabase`          | Database connection wrapper | JDBC/DataSource      |
+| `ListSQLDatabaseTool`  | Shows tables                | `SHOW TABLES`        |
+| `InfoSQLDatabaseTool`  | Shows schema                | `DESCRIBE table`     |
+| `QuerySQLCheckerTool`  | SQL reviewer/corrector      | DBA checking query   |
+| `QuerySQLDatabaseTool` | Executes SQL                | JDBC executeQuery()  |
+| `SQLDatabaseToolkit`   | Collection of all SQL tools | Spring configuration |
+
+
+These classes are part of langchain_community.utilities.sql_database and langchain_community.agent_toolkits.sql.toolkit.
+They are used to build SQL agents that can inspect a database, generate SQL, validate it, and execute it.
+
+-------------------------------------------------------------------------------
+
+                Overall Architecture
+
+
+                    User Question
+                          |
+                          ↓
+                      SQL Agent
+                          |
+      ------------------------------------
+      |                |                 |
+      ↓                ↓                 ↓
+ListSQLDatabaseTool  InfoSQLDatabaseTool  QuerySQLCheckerTool
+      |                |                 |
+      ------------------------------------
+                          |
+                    Generate SQL
+                          |
+                          ↓
+                 QuerySQLDatabaseTool
+                          |
+                          ↓
+                     SQLDatabase
+                          |
+                          ↓
+                     PostgreSQL
+
+-----------------------------------------------------------------------------
